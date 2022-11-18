@@ -8,4 +8,4 @@ services:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:
       context: .
-      dockerfile: src/catalog/Catalog.API/Dockerfile
+      dockerfile: Services/Catalog/Catalog.API/Dockerfile
