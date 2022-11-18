@@ -9,6 +9,12 @@ services:
     ports:
       - "27017:27017"
   
+  cart.db:
+    container_name: cart.db
+    restart: always
+    ports:
+      - "6379:6379"
+  
   catalog.api:
     container_name: catalog.api
     environment:
@@ -21,3 +27,13 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+        
+  cart.api:
+    container_name: cart.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "CacheSettings:ConnectionString=cart.db:6379"
+    depends_on:
+      - cart.db
+    ports:
+      - "8001:80"
