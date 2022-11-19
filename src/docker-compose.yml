@@ -7,6 +7,12 @@ services:
   cart.db:
     image: redis:7.0.5-alpine
     
+  discount.db:
+    image: postgres:15.1-alpine
+    
+  pgadmin:
+    image: dpage/pgadmin4:6.16
+    
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:
@@ -18,3 +24,9 @@ services:
     build:
       context: .
       dockerfile: Services/Cart/Cart.API/Dockerfile
+      
+  discount.api:
+    image: ${DOCKER_REGISTRY-}discountapi
+    build:
+      context: .
+      dockerfile: Services/Discount/Discount.API/Dockerfile
